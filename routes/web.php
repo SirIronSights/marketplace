@@ -11,8 +11,10 @@ Route::get('/users/create', function () {return view('users.create');})->name('u
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::get('/users/{id}', function () {})->name('users.show');
 Route::get('/users/{id}/edit', function () {})->name('users.edit');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', function () {})->name('users.update');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 Route::get('/products', function () { return view('products.index'); })->name('products.index');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -20,9 +22,10 @@ Route::get('/products/create', function () {return view('products.create');})->n
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', function () {})->name('products.store');
 Route::get('/products/{id}', function () {})->name('products.show');
-Route::get('/products/{id}/edit', function () {})->name('products.edit');
+Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('/products/{id}', function () {})->name('products.update');
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 Route::get('/categories', function () { return view('categories.index'); })->name('categories.index');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -30,9 +33,10 @@ Route::get('/categories/create', function () {return view('categories.create');}
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('/categories', function () {})->name('categories.store');
 Route::get('/categories/{id}', function () {})->name('categories.show');
-Route::get('/categories/{id}/edit', function () {})->name('categories.edit');
+Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::put('/categories/{id}', function () {})->name('categories.update');
-Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 // We voegen ook een redirect toe aan de routes die de hoofdpagina doorverwijst naar de '/items' route
 Route::redirect('/', '/users');

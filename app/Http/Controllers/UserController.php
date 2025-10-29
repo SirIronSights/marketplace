@@ -30,7 +30,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -46,7 +52,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -60,12 +67,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        $user = User::find($id);
-        if ($user) {
-            $user->delete();
-        }
+        $user->delete();
         return redirect()->route('users.index');
     }
 }

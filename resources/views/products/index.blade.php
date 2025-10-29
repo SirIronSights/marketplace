@@ -20,6 +20,9 @@
             <td>{{ $product->title }}</td>
             <td>{{ $product->text }}</td>
             <td>
+                <a href="{{ route('products.edit', $product->id) }}">Bewerken</a>
+            </td>
+            <td>
                 <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                     @csrf
                     @method('DELETE')

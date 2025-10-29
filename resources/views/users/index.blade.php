@@ -20,6 +20,9 @@
             <td>{{ $user->username }}</td>
             <td>{{ $user->email }}</td>
             <td>
+                <a href="{{ route('users.edit', $user->id) }}">Bewerken</a>
+            </td>
+            <td>
                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                     @csrf
                     @method('DELETE')

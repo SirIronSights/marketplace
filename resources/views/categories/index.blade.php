@@ -20,6 +20,9 @@
             <td>{{ $category->name }}</td>
             <td>{{ $category->description }}</td>
             <td>
+                <a href="{{ route('categories.edit', $category->id) }}">Bewerken</a>
+            </td>
+            <td>
                 <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
                     @csrf
                     @method('DELETE')

@@ -30,7 +30,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->title = $request->input('title');
+        $product->text = $request->input('text');
+        $product->save();
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -46,7 +51,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -60,12 +66,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product )
     {
-        $product = Product::find($id);
-        if ($product) {
-            $product->delete();
-        }
+        $product->delete();
         return redirect()->route('products.index');
     }
 }
