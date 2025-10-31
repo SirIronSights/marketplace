@@ -10,10 +10,10 @@
     <input type="text" id="username" name="username" value="{{ $user->username }}" required>
     <br>
     <label for="email">Beschrijving:</label>
-    <textarea id="email" name="email">{{ $user->email }}</textarea>
+    <input type="email" id="email" name="email" value="{{ $user->email }}" required>
     <br>
     <label for="password">Password:</label>
-    <textarea id="password" name="password">{{$user->password }}</textarea>
+    <input type="password" id="password" name="password" value="{{ $user->password }}" required>
     <br>
     <button type="submit">Bijwerken</button>
 </form>

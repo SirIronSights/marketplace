@@ -11,6 +11,7 @@
         <tr>
             <th>Naam</th>
             <th>Beschrijving</th>
+            <th>Categorieën</th>
             <th>Acties</th>
         </tr>
     </thead>
@@ -19,6 +20,7 @@
         <tr>
             <td>{{ $product->title }}</td>
             <td>{{ $product->text }}</td>
+            <td>{{ $product->categories->pluck('name')->join(', ') }}</td>
             <td>
                 <a href="{{ route('products.edit', $product->id) }}">Bewerken</a>
             </td>

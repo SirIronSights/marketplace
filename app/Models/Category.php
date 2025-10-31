@@ -10,7 +10,9 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function articles() {
-    return $this->belongsToMany(Product::class);
-} //veel categorieen, veel producten.
+    public function products() {
+        return $this->belongsToMany(Product::class);
+    } //veel categorieen, veel producten.
+
+    protected $fillable = ['name', 'description'];
 }

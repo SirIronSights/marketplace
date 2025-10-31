@@ -5,15 +5,15 @@
 @section('content')
 <h1>Nieuwe User Aanmaken</h1>
 <form action="{{ route('users.store') }}" method="POST">
-@csrf
+    @csrf
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
     <br>
     <label for="email">Email:</label>
-    <textarea id="email" name="email"></textarea>
+    <input type="email" id="email" name="email" required>
     <br>
     <label for="password">Password:</label>
-    <textarea id="password" name="password"></textarea>
+    <input type="password" id="password" name="password" required>
     <br>
     <button type="submit">Opslaan</button>
 </form>

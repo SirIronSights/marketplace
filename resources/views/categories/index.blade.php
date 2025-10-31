@@ -10,7 +10,6 @@
     <thead>
         <tr>
             <th>Naam</th>
-            <th>Beschrijving</th>
             <th>Acties</th>
         </tr>
     </thead>
@@ -18,7 +17,6 @@
         @foreach($categories as $category)
         <tr>
             <td>{{ $category->name }}</td>
-            <td>{{ $category->description }}</td>
             <td>
                 <a href="{{ route('categories.edit', $category->id) }}">Bewerken</a>
             </td>

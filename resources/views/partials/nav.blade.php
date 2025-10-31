@@ -23,5 +23,17 @@
        <li><a href="{{ route('products.create') }}">Create Product</a></li>
        <li><a href="{{ route('categories.index') }}">Categories List</a></li>
        <li><a href="{{ route('categories.create') }}">Create Categories</a></li>
+
+       @auth
+           <li>Welcome, {{ auth()->user()->username }}!</li>
+           <li>
+               <form method="POST" action="{{ route('logout') }}">
+                   @csrf
+                   <button type="submit" style="background:none; border:none; cursor:pointer; color:#007bff; padding:0;">Logout</button>
+               </form>
+           </li>
+       @else
+           <li><a href="{{ route('login') }}">Login</a></li>
+       @endauth
     </ul>
 </nav>

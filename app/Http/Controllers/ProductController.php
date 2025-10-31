@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 
 
@@ -13,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('categories')->get();
         return view('products.index', compact('products'));
     }
 
@@ -22,18 +26,24 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
+        $validated = $request->validated();
         $product = new Product();
-        $product->title = $request->input('title');
-        $product->text = $request->input('text');
+
+        $product->title = $validated['title'];
+        $product->description = $validated['text'];
+
         $product->save();
+
+        $product->categories()->attach($validated['categories']);
 
         return redirect()->route('products.index');
     }
@@ -49,18 +59,26 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        $product = Product::find($id);
-        return view('products.edit', compact('product'));
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(UpdateProductRequest $request, Product $product) {
+        $validated = $request->validated();
+
+        $product->title = $validated['title'];
+        $product->text = $validated['text'];
+
+        $product->save();
+
+        $product->categories()->sync($validated['categories']);
+
+        return redirect()->route('products.index', compact('product'));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,5 +28,14 @@ class ProductFactory extends Factory
             'created_at' => $createdAt,
             'updated_at' => $updatedAt, 
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (\App\Models\Product $product) {
+            // Pick 1–3 random categories
+            $categories = Category::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $product->categories()->attach($categories);
+        });
     }
 } 
