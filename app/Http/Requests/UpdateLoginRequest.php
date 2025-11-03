@@ -22,9 +22,9 @@ class UpdateLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required|string',
+            // 'username' => 'required|string',
+            // 'email' => 'required|email',
+            // 'password' => 'required|string',
         ];
     }
 }

@@ -11,41 +11,23 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login.login');
+        return view('auth.login');
     }
 
-    // public function login(StoreLoginRequest $request)
-    // {
-    //     $credentials = $request->validated();
-
-    //     if (Auth::attempt(['username' => $credentials['username'], 'email' => $credentials['email'] , 'password' => $credentials['password']])) {  
-    //         $request->session()->regenerate();
-    //         return redirect()->intended('/users');
-    //     }
-
-    //     return back()->withErrors([
-    //         'username' => 'De ingevoerde gebruikersnaam of het wachtwoord is onjuist.',
-    //     ])->onlyInput('username');
-    // }
-
-    public function login(Request $request): RedirectResponse
+    public function login(StoreLoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
- 
-        if (Auth::attempt($credentials)) {
+        $credentials = $request->validated();
+        
+        if (Auth::attempt($credentials)) {  
             $request->session()->regenerate();
- 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/users');
         }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
-    }
 
+        return back()->withErrors([
+            'username' => 'De ingevoerde gebruikersnaam of het wachtwoord is onjuist.',
+        ])->onlyInput('username');
+    }
+    
     public function logout(Request $request)
     {
         Auth::logout();

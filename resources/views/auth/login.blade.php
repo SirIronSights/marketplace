@@ -3,6 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
+
 <h1>Login</h1>
 
 @if ($errors->any())
@@ -28,5 +29,8 @@
         <input type="password" name="password" id="password" required>
     </div>
     <button type="submit">Login</button>
+    <div style="margin-top: 10px;">
+        <a href="{{ route('password.request') }}">Forgot Your Password?</a>
+    </div>
 </form>
 @endsection
