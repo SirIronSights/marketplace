@@ -7,5 +7,6 @@
     @include('partials.nav')
     <main style="padding-top: 5px;">
     @yield('content')
+    </main>
 </body>
 </html>

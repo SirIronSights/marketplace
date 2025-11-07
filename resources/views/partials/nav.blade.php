@@ -20,7 +20,10 @@
        <li><a href="{{ route('users.index') }}">User List</a></li>
        <li><a href="{{ route('users.create') }}">Create User</a></li>
        <li><a href="{{ route('products.index') }}">Product List</a></li>
-       <li><a href="{{ route('products.create') }}">Create Product</a></li>
+       @auth
+            <li><a href="{{ route('products.create') }}">Create Product</a></li>
+            <li><a href="{{ route('products.my') }}">My Advertisements</a></li>
+        @endauth
        <li><a href="{{ route('categories.index') }}">Categories List</a></li>
        <li><a href="{{ route('categories.create') }}">Create Categories</a></li>
 

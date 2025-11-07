@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BidController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,13 +29,15 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::middleware('auth')->group(function () {
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::get('/products/{id}', function () {})->name('products.show');
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
+Route::get('/my-products', [ProductController::class, 'myProducts'])->name('products.my');
+});
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
@@ -44,7 +47,10 @@ Route::put('/categories/{category}', [CategoryController::class, 'update'])->nam
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
-// We voegen ook een redirect toe aan de routes die de hoofdpagina doorverwijst naar de '/items' route
+Route::middleware('auth')->group(function () {
+    Route::get('/products/{product}/bids/create', [BidController::class, 'create'])->name('bids.create');
+    Route::post('/products/{product}/bids', [BidController::class, 'store'])->name('bids.store');
+});
 
 Route::get('/', function () {
     return redirect()->route('users.index');

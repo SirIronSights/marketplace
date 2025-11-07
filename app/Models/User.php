@@ -38,8 +38,7 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
+    protected function casts(): array{
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
@@ -49,4 +48,8 @@ class User extends Authenticatable
     public function products() {
         return $this->hasMany(Product::class);
     } // een gebruiker, veel producten
+
+    public function bids(){
+        return $this->hasMany(Bid::class);
+    }
 }

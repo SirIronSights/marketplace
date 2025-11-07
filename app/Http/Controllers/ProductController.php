@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
@@ -15,10 +16,22 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('categories')->get();
-        return view('products.index', compact('products'));
+        $categories =Category::all();
+        
+        $query = Product::with(['categories','user','bids' => function ($query) {$query->orderByDesc('amount');},'bids.user']);
+
+        if ($request->has('categories')) {
+            $categoryIds = $request->input('categories');
+            $query->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('categories.id', $categoryIds);
+            });
+        }
+
+        $products = $query->paginate(10)->withQueryString();
+        
+        return view('products.index', compact('products', 'categories'));
     }
 
     /**
@@ -39,11 +52,12 @@ class ProductController extends Controller
         $product = new Product();
 
         $product->title = $validated['title'];
-        $product->description = $validated['text'];
+        $product->text = $validated['text'];
+        $product->user_id = Auth::id();
 
         $product->save();
 
-        $product->categories()->attach($validated['categories']);
+        $product->categories()->attach($validated['categories']); // tf wil chatgpt hebben met category_id?
 
         return redirect()->route('products.index');
     }
@@ -89,4 +103,15 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
+
+    public function myProducts()
+    {
+        $user = Auth::user();
+        $products = Product::where('user_id', $user->id)
+            ->with('categories')
+            ->get();
+
+        return view('products.my', compact('products'));
+    }
+
 }
