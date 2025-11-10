@@ -29,6 +29,13 @@ class ProductController extends Controller
             });
         }
 
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                ->orWhere('text', 'like', "%{$search}%");
+            });
+        }
         $products = $query->paginate(10)->withQueryString();
         
         return view('products.index', compact('products', 'categories'));

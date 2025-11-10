@@ -10,7 +10,7 @@ class ForgotPasswordController extends Controller
 {
     public function showLinkRequestForm()
     {
-        return view('auth.passwords.email'); // Blade for the "send reset link" form
+        return view('auth.passwords.email'); 
     }
 
     public function sendResetLinkEmail(Request $request)

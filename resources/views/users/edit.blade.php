@@ -12,8 +12,14 @@
     <label for="email">Beschrijving:</label>
     <input type="email" id="email" name="email" value="{{ $user->email }}" required>
     <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" value="{{ $user->password }}" required>
+    <label for="password">Wachtwoord (leave empty to keep current):</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <label>
+    <input type="checkbox" name="notify_by_email" value="1"
+        {{ $user->notify_by_email ? 'checked' : '' }}>
+        Notify me by email when I receive a new message
+    </label>
     <br>
     <button type="submit">Bijwerken</button>
 </form>

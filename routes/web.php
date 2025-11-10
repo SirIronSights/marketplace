@@ -7,6 +7,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BidController;
+use App\Http\Controllers\MessageController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,13 +33,13 @@ Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::middleware('auth')->group(function () {
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-Route::get('/products/{id}', function () {})->name('products.show');
-Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-Route::get('/my-products', [ProductController::class, 'myProducts'])->name('products.my');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::get('/products/{id}', function () {})->name('products.show');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/my-products', [ProductController::class, 'myProducts'])->name('products.my');
 });
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -50,6 +53,13 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])-
 Route::middleware('auth')->group(function () {
     Route::get('/products/{product}/bids/create', [BidController::class, 'create'])->name('bids.create');
     Route::post('/products/{product}/bids', [BidController::class, 'store'])->name('bids.store');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/create', [MessageController::class, 'create'])->name('messages.create');
+    Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
 });
 
 Route::get('/', function () {

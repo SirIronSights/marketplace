@@ -61,6 +61,14 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user) {
         $validated = $request->validated();
 
+        $validated['notify_by_email'] = $request->has('notify_by_email');
+
+        if ($request->filled('password')) {
+        $validated['password'] = bcrypt($request->password);
+        } else {
+        unset($validated['password']); // don’t overwrite if empty
+        }
+
         $user->update($validated);
 
         return redirect()->route('users.index');

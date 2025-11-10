@@ -6,6 +6,17 @@
 
 <h1>Products</h1>
 
+<form method="GET" action="{{ route('products.index') }}" style="margin-bottom: 15px;">
+    <input type="text" name="search" placeholder="Search products..."
+           value="{{ request('search') }}"
+           style="padding: 5px; width: 250px;">
+    <button type="submit">🔍 Search</button>
+
+    @if(request('search'))
+        <a href="{{ route('products.index') }}" style="margin-left: 10px;">Reset</a>
+    @endif
+</form>
+
 <button id="toggleFilter" style="margin-bottom: 10px;">
     🔍 Show Filters
 </button>
