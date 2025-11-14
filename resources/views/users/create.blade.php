@@ -15,6 +15,11 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
     <br>
+    <label>
+        <input type="checkbox" name="notify_by_email" value="1">
+        Notify me by email when I receive a new message
+    </label>
+    <br>
     <button type="submit">Opslaan</button>
 </form>
     <p>This is the content for the page.</p>

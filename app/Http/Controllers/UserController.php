@@ -34,6 +34,8 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
+        $validated['notify_by_email'] = $request->has('notify_by_email');
+
         User::create($validated);
 
         return redirect()->route('users.index');

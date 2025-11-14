@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('text')->nullable();
+            $table->boolean('is_premium')->default(false);
             $table->foreignId('user_id');
             $table->string('image_path')->nullable();
             $table->timestamps();

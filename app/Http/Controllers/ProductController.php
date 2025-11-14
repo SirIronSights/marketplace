@@ -20,7 +20,10 @@ class ProductController extends Controller
     {
         $categories =Category::all();
         
-        $query = Product::with(['categories','user','bids' => function ($query) {$query->orderByDesc('amount');},'bids.user']);
+        // $query = Product::with(['categories','user','bids' => function ($query) {$query->orderByDesc('amount');},'bids.user']);
+        $query = Product::with(['categories', 'user', 'bids' => function($q){
+            $q->orderByDesc('amount');
+        }, 'bids.user'])->orderByDesc('is_premium')->orderByDesc('created_at');
 
         if ($request->has('categories')) {
             $categoryIds = $request->input('categories');
@@ -121,4 +124,18 @@ class ProductController extends Controller
         return view('products.my', compact('products'));
     }
 
+    public function payPage(Product $product)
+    {
+        return view('products.pay', compact('product'));
+    }
+
+    public function completePayment(Product $product)
+    {
+        $product->is_premium = true;
+        $product->save();
+
+        return redirect()
+            ->route('products.my')
+            ->with('success', 'Transaction complete — the article is now premium!');
+    }
 }

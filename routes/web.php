@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/my-products', [ProductController::class, 'myProducts'])->name('products.my');
+    Route::get('/products/{product}/pay', [ProductController::class, 'payPage'])->name('products.pay');
+    Route::post('/products/{product}/pay', [ProductController::class, 'completePayment'])->name('products.pay.complete');
 });
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');

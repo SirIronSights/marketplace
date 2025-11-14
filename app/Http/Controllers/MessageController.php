@@ -54,13 +54,14 @@ class MessageController extends Controller
         ]);
 
         $receiver = User::find($request->receiver_id);
+
         // $receiver->notify(new NewMessageNotification($message));
         if ($receiver->notify_by_email) {
             Mail::to($receiver->email)->send(new \App\Mail\NewInboxMessage($message));
         }
         
 
-        return redirect()->route('messages.index')->with('success', 'message send');
+        return redirect()->back()->with('success', 'message send');
     }
 
     public function show(Message $message){

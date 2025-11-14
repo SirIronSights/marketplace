@@ -26,6 +26,15 @@
             <td style="padding: 10px;">{{ $product->user->username }}</td>
             <td style="padding: 10px;">
                 <a href="{{ route('products.edit', $product->id) }}" style="color: #007bff;">Bewerken</a>
+            <a href="{{ route('products.pay', $product->id) }}"
+                style="color: green; display:block; margin-top:5px;">
+                ⭐ Promote
+            </a>
+            @if($product->is_premium)
+                <span style="color: gold; font-weight:bold; display:block; margin-top:5px;">
+                    ★ Premium
+                </span>
+            @endif
             </td>
             <td style="padding: 10px;">
                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirmDelete(event)" class="delete-form" style="display: inline;">
