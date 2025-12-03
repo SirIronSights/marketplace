@@ -30,7 +30,7 @@
     </div>
     <button type="submit">Login</button>
     <div style="margin-top: 10px;">
-        <a href="{{ route('password.request') }}">Forgot Your Password?</a>
+        <a href="{{ route('password.request') }}">Wachtwoord Vergeten?</a>
     </div>
 </form>
 @endsection

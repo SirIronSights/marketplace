@@ -20,7 +20,6 @@ class ProductController extends Controller
     {
         $categories =Category::all();
         
-        // $query = Product::with(['categories','user','bids' => function ($query) {$query->orderByDesc('amount');},'bids.user']);
         $query = Product::with(['categories', 'user', 'bids' => function($q){
             $q->orderByDesc('amount');
         }, 'bids.user'])->orderByDesc('is_premium')->orderByDesc('created_at');
@@ -67,7 +66,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        $product->categories()->attach($validated['categories']); // tf wil chatgpt hebben met category_id?
+        $product->categories()->attach($validated['categories']);
 
         return redirect()->route('products.index');
     }

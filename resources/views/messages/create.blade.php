@@ -3,14 +3,14 @@
 @section('title', 'New Message')
 
 @section('content')
-<h1>Send a Message</h1>
+<h1>Verstuur Bericht</h1>
 
 <form method="POST" action="{{ route('messages.store') }}">
     @csrf
 
     <label for="receiver_id">To:</label><br>
     <select name="receiver_id" id="receiver_id" required>
-        <option value="">-- Select user --</option>
+        <option value="">Gebruiker</option>
         @foreach($users as $user)
             <option value="{{ $user->id }}">{{ $user->username }}</option>
         @endforeach
@@ -23,8 +23,8 @@
     <label for="text">Message:</label><br>
     <textarea id="text" name="text" rows="6" cols="50" required>{{ old('text') }}</textarea><br><br>
 
-    <button type="submit">Send</button>
+    <button type="submit">Stuur</button>
 </form>
 
-<a href="{{ route('messages.index') }}" style="margin-top: 10px; display: inline-block;">⬅ Back to Inbox</a>
+<a href="{{ route('messages.index') }}" style="margin-top: 10px; display: inline-block;">terug naar inbox</a>
 @endsection

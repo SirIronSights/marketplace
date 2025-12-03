@@ -15,14 +15,6 @@ class MessageController extends Controller
     public function index(){
         $messages = Message::with('sender')->where('receiver_id', Auth::id())->latest()->get();
 
-        // $user = Auth::user();
-        
-        // //auth()->user()->unreadNotifications->markAsRead();
-
-        // if (Auth::check()){
-        //     Auth::user()->unreadNotifications()->where('type', 'App\Notifications\NewMessageNotification')->update(['read_at' => now()]);
-        // }
-
         DB::table('notifications')
         ->where('notifiable_type', 'App\Models\User')
         ->where('notifiable_id', Auth::id())
@@ -55,7 +47,6 @@ class MessageController extends Controller
 
         $receiver = User::find($request->receiver_id);
 
-        // $receiver->notify(new NewMessageNotification($message));
         if ($receiver->notify_by_email) {
             Mail::to($receiver->email)->send(new \App\Mail\NewInboxMessage($message));
         }

@@ -68,7 +68,7 @@ class UserController extends Controller
         if ($request->filled('password')) {
         $validated['password'] = bcrypt($request->password);
         } else {
-        unset($validated['password']); // don’t overwrite if empty
+        unset($validated['password']);
         }
 
         $user->update($validated);

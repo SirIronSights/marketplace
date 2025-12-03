@@ -10,7 +10,7 @@
     <input type="text" name="search" placeholder="Search products..."
            value="{{ request('search') }}"
            style="padding: 5px; width: 250px;">
-    <button type="submit">🔍 Search</button>
+    <button type="submit">Zoek</button>
 
     @if(request('search'))
         <a href="{{ route('products.index') }}" style="margin-left: 10px;">Reset</a>
@@ -18,10 +18,10 @@
 </form>
 
 <button id="toggleFilter" style="margin-bottom: 10px;">
-    🔍 Show Filters
+    Show Filters
 </button>
 
-<div id="filterMenu" style="display: none; border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+<div id="filterMenu">
     <form method="GET" action="{{ route('products.index') }}">
         <div>
             <strong>Filter by category:</strong><br>
@@ -43,25 +43,25 @@
 
 <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
     <thead>
-        <tr style="background-color: #f0f0f0;">
-            <th style="padding: 10px; border: 1px solid #ccc;">Naam</th>
-            <th style="padding: 10px; border: 1px solid #ccc;">Beschrijving</th>
-            <th style="padding: 10px; border: 1px solid #ccc;">Categorieën</th>
-            <th style="padding: 10px; border: 1px solid #ccc;">Aanbieder</th>
-            <th style="padding: 10px; border: 1px solid #ccc;">Biedingen</th>
-            <th style="padding: 10px; border: 1px solid #ccc;">Acties</th>
+        <tr>
+            <th>Naam</th>
+            <th>Beschrijving</th>
+            <th>Categorieën</th>
+            <th>Aanbieder</th>
+            <th>Biedingen</th>
+            <th>Acties</th>
         </tr>
     </thead>
     <tbody>
         @foreach($products as $product)
         <tr>
-            <td style="padding: 10px; border: 1px solid #ccc;">{{ $product->title }}</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">{{ $product->text }}</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">{{ $product->categories->pluck('name')->join(', ') }}</td>
-            <td style="padding: 10px; border: 1px solid #ccc;">{{ $product->user->username }}</td>
+            <td>{{ $product->title }}</td>
+            <td>{{ $product->text }}</td>
+            <td>{{ $product->categories->pluck('name')->join(', ') }}</td>
+            <td>{{ $product->user->username }}</td>
             
             
-            <td style="padding: 10px; border: 1px solid #ccc;">
+            <td>
                 @if($product->bids->count() > 0)
                     <strong>Hoogste bod:</strong> €{{ number_format($product->bids->max('amount'), 2) }}<br>
                     <ul style="margin-top: 5px; padding-left: 15px;">
@@ -77,7 +77,7 @@
                 @endif
             </td>
 
-            <td style="padding: 10px; border: 1px solid #ccc;">
+            <td>
                 <a href="{{ route('products.edit', $product->id) }}">Bewerken</a><br>
                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="margin-top:5px;">
                     @csrf
@@ -116,7 +116,7 @@
         const menu = document.getElementById('filterMenu');
         const isVisible = menu.style.display === 'block';
         menu.style.display = isVisible ? 'none' : 'block';
-        this.textContent = isVisible ? '🔍 Show Filters' : '✖ Hide Filters';
+        this.textContent = isVisible ? '🔍 laat filters zien' : '✖ klap filters in';
     });
 </script>
 @endsection

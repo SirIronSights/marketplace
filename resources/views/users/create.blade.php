@@ -17,7 +17,7 @@
     <br>
     <label>
         <input type="checkbox" name="notify_by_email" value="1">
-        Notify me by email when I receive a new message
+        Vertel me wanneed ik een bericht ontvang op email
     </label>
     <br>
     <button type="submit">Opslaan</button>

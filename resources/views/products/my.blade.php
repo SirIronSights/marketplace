@@ -8,31 +8,31 @@
 <table >
     <thead>
         <tr>
-            <th style="padding: 12px; border-bottom: 2px solid #ccc;">Naam</th>
-            <th style="padding: 12px; border-bottom: 2px solid #ccc;">Beschrijving</th>
-            <th style="padding: 12px; border-bottom: 2px solid #ccc;">Categorieën</th>
-            <th style="padding: 12px; border-bottom: 2px solid #ccc;">Aanbieder</th>
-            <th style="padding: 12px; border-bottom: 2px solid #ccc;">Bewerken</th>
-            <th style="padding: 12px; border-bottom: 2px solid #ccc;">Verwijderen</th>
+            <th>Naam</th>
+            <th>Beschrijving</th>
+            <th>Categorieën</th>
+            <th>Aanbieder</th>
+            <th>Bewerken</th>
+            <th>Verwijderen</th>
         </tr>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </thead>
     <tbody>
         @foreach($products as $product)
-        <tr style="border-bottom: 1px solid #eee;">
+        <tr>
             <td style="padding: 10px;">{{ $product->title }}</td>
             <td style="padding: 10px;">{{ $product->text }}</td>
             <td style="padding: 10px;">{{ $product->categories->pluck('name')->join(', ') }}</td>
             <td style="padding: 10px;">{{ $product->user->username }}</td>
             <td style="padding: 10px;">
-                <a href="{{ route('products.edit', $product->id) }}" style="color: #007bff;">Bewerken</a>
+                <a href="{{ route('products.edit', $product->id) }}">Bewerken</a>
             <a href="{{ route('products.pay', $product->id) }}"
                 style="color: green; display:block; margin-top:5px;">
-                ⭐ Promote
+                Promote
             </a>
             @if($product->is_premium)
                 <span style="color: gold; font-weight:bold; display:block; margin-top:5px;">
-                    ★ Premium
+                    Premium
                 </span>
             @endif
             </td>
@@ -40,14 +40,7 @@
                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirmDelete(event)" class="delete-form" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" style="
-                        background-color: #ff4d4d;
-                        color: white;
-                        border: none;
-                        padding: 6px 10px;
-                        border-radius: 5px;
-                        cursor: pointer;
-                    ">Verwijderen</button>
+                    <button type="submit">Verwijderen</button>
                 </form>
             </td>
         </tr>
@@ -62,8 +55,8 @@
                 text: "This action cannot be undone!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it',
-                cancelButtonText: 'No, cancel',
+                confirmButtonText: 'delete',
+                cancelButtonText: 'cancel',
             }).then((result) => {
                 if (result.isConfirmed) {
                     event.target.submit();
