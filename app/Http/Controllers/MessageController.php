@@ -16,11 +16,11 @@ class MessageController extends Controller
         $messages = Message::with('sender')->where('receiver_id', Auth::id())->latest()->get();
 
         DB::table('notifications')
-        ->where('notifiable_type', 'App\Models\User')
-        ->where('notifiable_id', Auth::id())
-        ->whereNull('read_at')
-        ->where('type', 'App\Notifications\NewMessageNotification')
-        ->update(['read_at' => now()]);
+            ->where('notifiable_type', 'App\Models\User')
+            ->where('notifiable_id', Auth::id())
+            ->whereNull('read_at')
+            ->where('type', 'App\Notifications\NewMessageNotification')
+            ->update(['read_at' => now()]);
 
         return view('messages.index', compact('messages'));
     }

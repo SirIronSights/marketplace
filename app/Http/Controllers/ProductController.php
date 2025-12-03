@@ -58,6 +58,8 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $validated = $request->validated();
+
+        // naar massassignment
         $product = new Product();
 
         $product->title = $validated['title'];
